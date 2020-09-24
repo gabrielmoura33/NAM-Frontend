@@ -10,7 +10,7 @@ import logoSrc from '../../assets/logoUemg.svg';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import getValidationErrors from '../../utils/getValidationErros';
-
+import doodleSrc from '../../assets/doodle.jpg';
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
 
@@ -56,10 +56,7 @@ const SignIn: React.FC = () => {
   return (
     <Wrapper>
       <ImageContainer>
-        <img
-          src="http://www.uemg.br/images/2019/Eventos/VI_Dia_do_Contrabaixo_4.jpg"
-          alt=""
-        />
+        <img src={doodleSrc} alt="" />
       </ImageContainer>
       <Content>
         <Box>

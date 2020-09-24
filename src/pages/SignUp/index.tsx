@@ -15,6 +15,7 @@ import api from '../../services/api';
 import { useToast } from '../../hooks/toast';
 import getValidationErrors from '../../utils/getValidationErros';
 import history from '../../services/history';
+import doodleSrc from '../../assets/doodleSignup.jpg';
 
 interface SignupData {
   name: string;
@@ -105,10 +106,7 @@ const SignUp: React.FC = () => {
         </Box>
       </Content>
       <ImageContainer>
-        <img
-          src="https://lh3.googleusercontent.com/proxy/MxNcKj4iLRxGEPWnGufIYg90L1yxMNtuU9IBBRp165XGSSf90A5tGvAum7KM3U6cQzOYx37CAHy5Lvn18M3oxv__J3gCaC3avrGX3zZJLzxBDGXYOwCpwEXJ"
-          alt=""
-        />
+        <img src={doodleSrc} alt="" />
       </ImageContainer>
     </Wrapper>
   );
