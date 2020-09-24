@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 /* eslint-disable no-unused-expressions */
 import React, { useCallback, useRef } from 'react';
 
@@ -14,12 +15,10 @@ import Select from '../../components/Select';
 import api from '../../services/api';
 import { useToast } from '../../hooks/toast';
 import getValidationErrors from '../../utils/getValidationErros';
-import history from '../../services/history';
 import doodleSrc from '../../assets/doodleSignup.jpg';
 
 interface SignupData {
   name: string;
-  username: string;
   email: string;
   password: string;
   registerType: number;
@@ -34,7 +33,6 @@ const SignUp: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          username: Yup.string().required('Usuário obrigatório'),
           name: Yup.string().required('Nome obrigatório'),
           password: Yup.string().required('Senha Obrigatória'),
           email: Yup.string().required('E-mail Obrigatória'),
@@ -50,8 +48,6 @@ const SignUp: React.FC = () => {
           title: 'Cadastro Realizado',
           description: 'Cadastro realizado com sucesso!',
         });
-
-        history.push('/');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -74,13 +70,6 @@ const SignUp: React.FC = () => {
           <img src={logoSrc} alt="" />
           <Form onSubmit={handdleSubmit} ref={formRef}>
             <Input name="name" placeholder="Digite seu nome" icon={FaUserAlt} />
-
-            <Input
-              name="username"
-              placeholder="Digite seu usuario"
-              icon={FaUserAlt}
-            />
-
             <Input
               name="email"
               placeholder="Digite seu e-mail"

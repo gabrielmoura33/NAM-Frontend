@@ -6,7 +6,7 @@ interface AuthState {
   user: object;
 }
 interface SignInCredentials {
-  username: string;
+  email: string;
   password: string;
 }
 interface AuthContextData {
@@ -27,9 +27,9 @@ const AuthProvider: React.FC = ({ children }) => {
     return {} as AuthState;
   });
 
-  const signIn = useCallback(async ({ username, password }) => {
+  const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('sessions', {
-      username,
+      email,
       password,
     });
 

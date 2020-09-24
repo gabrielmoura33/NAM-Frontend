@@ -15,7 +15,7 @@ import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
 
 interface SignInFormData {
-  username: string;
+  email: string;
   password: string;
 }
 const SignIn: React.FC = () => {
@@ -28,7 +28,7 @@ const SignIn: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          username: Yup.string().required('Usuário obrigatório'),
+          email: Yup.string().required('E-Mail obrigatório'),
           password: Yup.string().required('Senha Obrigatória'),
         });
 
@@ -36,7 +36,7 @@ const SignIn: React.FC = () => {
           abortEarly: false,
         });
         await signIn({
-          username: data.username,
+          email: data.email,
           password: data.password,
         });
       } catch (err) {
@@ -63,8 +63,8 @@ const SignIn: React.FC = () => {
           <img src={logoSrc} alt="" />
           <Form onSubmit={handleSubmit} ref={formRef}>
             <Input
-              name="username"
-              placeholder="Digite seu usuario"
+              name="email"
+              placeholder="Digite seu e-mail"
               icon={FaUserAlt}
             />
             <Input
