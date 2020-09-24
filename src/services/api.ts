@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://nam-backend.gabrielmoura.website/',
+  baseURL: process.env.REACT_APP_API_URL,
 });
 
 export default api;
