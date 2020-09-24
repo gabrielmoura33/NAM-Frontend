@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import React, { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
-import { FaUserAlt, FaLock } from 'react-icons/fa';
+import { FaEnvelope, FaLock } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
@@ -65,7 +65,7 @@ const SignIn: React.FC = () => {
             <Input
               name="email"
               placeholder="Digite seu e-mail"
-              icon={FaUserAlt}
+              icon={FaEnvelope}
             />
             <Input
               name="password"
