@@ -5,7 +5,7 @@ import React, { useCallback, useRef } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { FaUserAlt, FaLock, FaEnvelope } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Wrapper, ImageContainer, Content, Box } from './styles';
 import logoSrc from '../../assets/logoUemg.svg';
@@ -26,7 +26,7 @@ interface SignupData {
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useToast();
-
+  const history = useHistory();
   const handdleSubmit = useCallback(
     async (data: SignupData) => {
       try {
@@ -48,6 +48,8 @@ const SignUp: React.FC = () => {
           title: 'Cadastro Realizado',
           description: 'Cadastro realizado com sucesso!',
         });
+
+        history.push('/');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -61,7 +63,7 @@ const SignUp: React.FC = () => {
         });
       }
     },
-    [addToast],
+    [addToast, history],
   );
   return (
     <Wrapper>
