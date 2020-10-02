@@ -15,28 +15,12 @@ import elipseSrc from '../../assets/elipse.svg';
 import { useAuth } from '../../hooks/auth';
 
 const Dashboard: React.FC = () => {
-  const [show, _] = useState(false);
   const { user } = useAuth();
-  const [open, set] = useState(true);
-
-  const elipseAnimated = useTransition(show, null, {
-    from: {
-      position: 'absolute',
-      transform: 'scale(0)',
-      top: '-500px',
-      right: '-500px',
-    },
-    enter: { opacity: 1, transform: 'scale(1)', top: '0', right: '0' },
-    leave: { opacity: 0 },
-  });
 
   return (
     <Wrapper>
       <Menu />
       <Container>
-        {elipseAnimated.map(({ item, key, props }) => (
-          <animated.img key={key} style={props} src={elipseSrc} alt="" />
-        ))}
         <Header>
           <WelcomeSection>
             <h1>
