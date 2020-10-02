@@ -3,14 +3,22 @@ import api from '../services/api';
 
 interface AuthState {
   token: string;
-  user: object;
+  user: UserProps;
 }
 interface SignInCredentials {
   email: string;
   password: string;
 }
+interface UserProps {
+  id: number;
+  email: string;
+  created_at: Date;
+  name: string;
+  registerType: number;
+  updated_at: Date;
+}
 interface AuthContextData {
-  user: object;
+  user: UserProps;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
 }
