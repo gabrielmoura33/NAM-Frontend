@@ -67,4 +67,35 @@ export const BellIcon = styled(BsBellFill)`
   fill: #fff;
 `;
 
-export const Section = styled.div``;
+export const Section = styled.div`
+  display: grid;
+  align-items: center;
+  z-index: 5;
+  padding: 0 6rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 0.5fr));
+  gap: 2rem;
+  cursor: pointer;
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    background: #fff;
+    height: 12rem;
+    width: 12rem;
+    border-radius: 8%;
+    opacity: 0.95;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: background 0.2s;
+
+    span {
+      font-size: 0.8rem;
+    }
+
+    &:hover {
+      background: ${darken(0.2, '#FFF')};
+      opacity: 1;
+    }
+  }
+`;
