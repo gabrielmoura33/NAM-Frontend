@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { BsBellFill } from 'react-icons/bs';
 import { darken } from 'polished';
 
@@ -40,12 +40,31 @@ export const WelcomeSection = styled.div`
   }
 `;
 
+const boxAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
 export const ProfileSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
 
+  a {
+    text-decoration: none;
+    color: #fff;
+    margin-top: 0.5rem;
+
+    &:hover {
+      color: ${darken(0.2, '#FFF')};
+    }
+  }
   input {
     border: 0;
     width: 50%;
@@ -59,6 +78,7 @@ export const ProfileSection = styled.div`
     align-items: center;
     justify-content: center;
     gap: 5px;
+    cursor: pointer;
     img {
       height: 80px;
       width: 80px;
@@ -78,7 +98,7 @@ export const Section = styled.div`
   display: grid;
   align-items: center;
   padding: 0 6rem;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   > div {
     cursor: pointer;
@@ -96,6 +116,7 @@ export const Section = styled.div`
     opacity: 0.95;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     transition: background 0.2s;
+    animation: ${boxAnimation} 0.5s;
 
     span {
       font-size: 0.8rem;
@@ -103,12 +124,6 @@ export const Section = styled.div`
 
     &:hover {
       background: ${darken(0.2, '#FFF')};
-      opacity: 1;
     }
   }
-`;
-
-export const AddBoxContainer = styled.div`
-  opacity: 1;
-  background: red;
 `;

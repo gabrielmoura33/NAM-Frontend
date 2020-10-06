@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTransition, animated } from 'react-spring';
 import { CgFileDocument } from 'react-icons/cg';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 import {
   Container,
   Wrapper,
@@ -14,11 +15,27 @@ import Menu from '../../components/Menu';
 import elipseSrc from '../../assets/elipse.svg';
 import { useAuth } from '../../hooks/auth';
 import Notifications from '../../components/Notification';
+import api from '../../services/api';
 
-const data = [1, 2, 3, 4, 5, 6, 7, 9];
+interface CollectionProps {
+  name: string;
+  id: string;
+}
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
   const [show] = useState(true);
+  const [collectionData, setCollectionData] = useState<CollectionProps[]>([]);
+
+  const loadAPIData = useCallback(async () => {
+    const response = await api.get('/collection/search');
+
+    setCollectionData(response.data);
+  }, []);
+
+  useEffect(() => {
+    loadAPIData();
+  }, [loadAPIData]);
+
   const animatedElipse = useTransition(show, null, {
     from: {
       opacity: 0,
@@ -31,19 +48,15 @@ const Dashboard: React.FC = () => {
     leave: { opacity: 0 },
   });
 
-  const boxtransiction = useTransition(show ? data : [], item => item, {
-    unique: true,
-    from: { opacity: 0, transform: 'scale(0)' },
-    enter: { opacity: 1, transform: 'scale(1)' },
-    leave: { opacity: 0, transform: 'scale(0)' },
-  });
-
   return (
     <Wrapper>
       {animatedElipse.map(({ item, key, props }) => (
         <animated.img key={key} style={props} src={elipseSrc} alt="Bola_azul" />
       ))}
       <Menu />
+      {/* <CollectionModalWrapper>
+        <CollectionModalContainer></CollectionModalContainer>
+      </CollectionModalWrapper> */}
       <Container>
         <Header>
           <WelcomeSection>
@@ -54,8 +67,6 @@ const Dashboard: React.FC = () => {
             <p>{user.name}</p>
           </WelcomeSection>
           <ProfileSection>
-            {/* <Form onSubmit={handdleChange} /> */}
-
             <input type="text" placeholder="Filtrar...." />
             <Notifications />
 
@@ -64,16 +75,16 @@ const Dashboard: React.FC = () => {
                 src="https://st3.depositphotos.com/4111759/13425/v/450/depositphotos_134255626-stock-illustration-avatar-male-profile-gray-person.jpg"
                 alt=""
               />
-              <span>Editar Perfil</span>
+              <Link to="/">Editar Perfil</Link>
             </div>
           </ProfileSection>
         </Header>
         <Section>
-          {boxtransiction.map(({ item, key, props }) => (
-            <animated.div key={key} style={{ ...props }}>
+          {collectionData.map(collection => (
+            <div key={collection.id}>
               <CgFileDocument size={50} color="#000" />
-              <span>Acervo Hostilio Soares</span>
-            </animated.div>
+              <span>{collection.name}</span>
+            </div>
           ))}
           <div>
             <AiOutlinePlusCircle size={50} color="#000" />
