@@ -16,37 +16,44 @@ const menuList = [
     icon: AiOutlineHome,
     text: 'Página Inicial',
     accessLevel: 0,
+    action: '/',
   },
   {
     icon: FaBuffer,
     text: 'Acervos',
     accessLevel: 1,
+    action: '/acervos',
   },
   {
     icon: RiFileExcel2Line,
     text: 'Importar Excel',
     accessLevel: 1,
+    action: '/importar-excel',
   },
   {
     icon: BsMusicNoteBeamed,
     text: 'Nova Obra',
     accessLevel: 1,
+    action: 'nova-obra',
   },
   {
     icon: BsClockHistory,
     text: 'Histórico ',
     accessLevel: 1,
+    action: 'historico',
   },
   {
     icon: FaUsers,
     text: 'Usuários',
     accessLevel: 1,
+    action: '/usuarios',
   },
 
   {
     icon: BiExit,
     text: 'Sair',
     accessLevel: 1,
+    action: '/logout',
   },
 ];
 const Menu: React.FC = () => {
@@ -58,7 +65,11 @@ const Menu: React.FC = () => {
       {menuList
         .filter(menuItem => menuItem.accessLevel <= user.registerType)
         .map(menuItem => (
-          <MenuField icon={menuItem.icon} text={menuItem.text} />
+          <MenuField
+            icon={menuItem.icon}
+            text={menuItem.text}
+            action={menuItem.action}
+          />
         ))}
     </Container>
   );
