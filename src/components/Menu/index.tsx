@@ -1,5 +1,10 @@
 import React from 'react';
 import { AiOutlineHome } from 'react-icons/ai';
+import { BiExit } from 'react-icons/bi';
+import { RiFileExcel2Line } from 'react-icons/ri';
+import { BsMusicNoteBeamed, BsClockHistory } from 'react-icons/bs';
+import { FaUsers, FaBuffer } from 'react-icons/fa';
+
 import { useAuth } from '../../hooks/auth';
 
 import { Container } from './styles';
@@ -13,42 +18,33 @@ const menuList = [
     accessLevel: 0,
   },
   {
-    icon: AiOutlineHome,
+    icon: FaBuffer,
     text: 'Acervos',
     accessLevel: 1,
   },
   {
-    icon: AiOutlineHome,
+    icon: RiFileExcel2Line,
     text: 'Importar Excel',
     accessLevel: 1,
   },
   {
-    icon: AiOutlineHome,
+    icon: BsMusicNoteBeamed,
     text: 'Nova Obra',
     accessLevel: 1,
   },
   {
-    icon: AiOutlineHome,
+    icon: BsClockHistory,
     text: 'Histórico ',
     accessLevel: 1,
   },
   {
-    icon: AiOutlineHome,
+    icon: FaUsers,
     text: 'Usuários',
     accessLevel: 1,
   },
+
   {
-    icon: AiOutlineHome,
-    text: 'Usuários',
-    accessLevel: 1,
-  },
-  {
-    icon: AiOutlineHome,
-    text: 'Usuários',
-    accessLevel: 1,
-  },
-  {
-    icon: AiOutlineHome,
+    icon: BiExit,
     text: 'Sair',
     accessLevel: 1,
   },

@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 export default createGlobalStyle`
   *{
@@ -13,10 +14,11 @@ export default createGlobalStyle`
     background: var(--background);
     height: 100%;
     width: 100%;
-    overflow: hidden;
   }
   #root {
     max-height: 100vh;
+    overflow: hidden;
+
   }
   h1 {
     font-family: 'Roboto Slab', serif;

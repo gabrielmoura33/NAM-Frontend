@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useTransition, animated } from 'react-spring';
 import { CgFileDocument } from 'react-icons/cg';
+import { AiOutlinePlusCircle } from 'react-icons/ai';
 import {
   Container,
   Wrapper,
   Header,
-  BellIcon,
   Section,
   WelcomeSection,
   ProfileSection,
@@ -13,13 +13,15 @@ import {
 import Menu from '../../components/Menu';
 import elipseSrc from '../../assets/elipse.svg';
 import { useAuth } from '../../hooks/auth';
+import Notifications from '../../components/Notification';
 
-const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const data = [1, 2, 3, 4, 5, 6, 7, 9];
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
   const [show] = useState(true);
   const animatedElipse = useTransition(show, null, {
     from: {
+      opacity: 0,
       position: 'absolute',
       transform: 'scale(0)',
       top: '-500px',
@@ -52,9 +54,10 @@ const Dashboard: React.FC = () => {
             <p>{user.name}</p>
           </WelcomeSection>
           <ProfileSection>
-            <input type="text" />
+            {/* <Form onSubmit={handdleChange} /> */}
 
-            <BellIcon />
+            <input type="text" placeholder="Filtrar...." />
+            <Notifications />
 
             <div>
               <img
@@ -72,6 +75,9 @@ const Dashboard: React.FC = () => {
               <span>Acervo Hostilio Soares</span>
             </animated.div>
           ))}
+          <div>
+            <AiOutlinePlusCircle size={50} color="#000" />
+          </div>
         </Section>
       </Container>
     </Wrapper>

@@ -8,7 +8,6 @@ export const Wrapper = styled.div`
   width: 100vw;
   > img {
     position: absolute;
-    z-index: 1;
   }
 `;
 
@@ -24,7 +23,7 @@ export const Header = styled.div`
 
   display: grid;
   align-items: center;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 2fr 2fr;
   grid-template-areas: 'hero' 'rest';
   padding: 2rem;
 `;
@@ -45,7 +44,15 @@ export const ProfileSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: row;
 
+  input {
+    border: 0;
+    width: 50%;
+    height: 2rem;
+    border-radius: 5%;
+    padding: 1rem;
+  }
   div {
     display: flex;
     flex-direction: column;
@@ -70,20 +77,21 @@ export const BellIcon = styled(BsBellFill)`
 export const Section = styled.div`
   display: grid;
   align-items: center;
-  z-index: 5;
   padding: 0 6rem;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 0.5fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
-  cursor: pointer;
-  div {
+  > div {
+    cursor: pointer;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 2rem;
     background: #fff;
-    height: 12rem;
-    width: 12rem;
+    height: 10rem;
+    width: 10rem;
+
     border-radius: 8%;
     opacity: 0.95;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -98,4 +106,9 @@ export const Section = styled.div`
       opacity: 1;
     }
   }
+`;
+
+export const AddBoxContainer = styled.div`
+  opacity: 1;
+  background: red;
 `;
