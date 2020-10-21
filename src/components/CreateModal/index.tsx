@@ -25,7 +25,7 @@ const CreateCollectionModal: React.FC<ModalProps> = ({
   const [coverImg, setCoverImg] = useState<File>();
   const [preview, setPreview] = useState('');
   const [modalContent, setModalContent] = useState('collection');
-
+  const [collection_id, setCollecitonId] = useState('');
   const handleUpload = useCallback(file => {
     setCoverImg(file[0]);
     setPreview(URL.createObjectURL(file[0]));
@@ -48,9 +48,10 @@ const CreateCollectionModal: React.FC<ModalProps> = ({
             <CollectionModal
               coverImg={coverImg}
               setModalContent={setModalContent}
+              setCollecitonId={setCollecitonId}
             />
           ) : (
-            <DocumentStructureModal />
+            <DocumentStructureModal collection_id={collection_id} />
           )}
         </Content>
       </Container>

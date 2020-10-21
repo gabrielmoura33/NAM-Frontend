@@ -91,12 +91,20 @@ export const DocumentFieldsContainer = styled.div`
   grid-template-columns: repeat(4, 1fr);
 `;
 
-export const DocumentField = styled.a`
+interface DocumentFieldProps {
+  colortype: string;
+}
+export const DocumentField = styled.a<DocumentFieldProps>`
   width: 117px;
   height: 37px;
   left: 739px;
   top: 396.17px;
-  background: #007ea7;
+  background: ${props =>
+    props.colortype === 'varchar' ? '#007ea7' : '#12AFCB'};
   border-radius: 12px;
-  transform: matrix(1, 0, 0, -1, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
 `;

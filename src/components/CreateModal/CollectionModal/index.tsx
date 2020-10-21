@@ -9,10 +9,12 @@ import { Container, InputBlock, Label, SubmitButton } from './styles';
 interface CollectionProps extends FormHTMLAttributes<HTMLFormElement> {
   coverImg: File | undefined;
   setModalContent: React.Dispatch<React.SetStateAction<string>>;
+  setCollecitonId: React.Dispatch<React.SetStateAction<string>>;
 }
 const CollectionModal: React.FC<CollectionProps> = ({
   coverImg,
   setModalContent,
+  setCollecitonId,
 }) => {
   const [collectionName, setCollectionName] = useState('');
   const [email, setEmail] = useState('');
@@ -30,7 +32,9 @@ const CollectionModal: React.FC<CollectionProps> = ({
       data.append('collectionName', collectionName);
       data.append('image', coverImg);
 
-      await api.post('collection', data);
+      const response = await api.post('collection', data);
+
+      setCollecitonId(String(response.data.id));
 
       addToast({
         type: 'sucess',
@@ -46,7 +50,15 @@ const CollectionModal: React.FC<CollectionProps> = ({
           'Ocorreu um erro ao cadastrar o acervo, verifique os dados e tente novamente',
       });
     }
-  }, [about, addToast, collectionName, coverImg, email, setModalContent]);
+  }, [
+    about,
+    addToast,
+    collectionName,
+    coverImg,
+    email,
+    setCollecitonId,
+    setModalContent,
+  ]);
   return (
     <Container onSubmit={handleApiSubmit}>
       <InputBlock>
