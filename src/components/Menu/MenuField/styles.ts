@@ -4,18 +4,22 @@ import { lighten } from 'polished';
 
 export const Container = styled.a`
   cursor: pointer;
-  margin-top: 2.2em;
+  margin-top: 2.8em;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   position: relative;
-  height: 2.5rem;
+  height: 40px;
   min-width: 42px;
   transition: background 0.2s;
   border-radius: 18px;
   font-weight: 400;
   color: #333;
+  span {
+    font-family: Roboto Slab;
+    font-size: 18px;
+  }
   div {
     position: absolute;
     margin-right: 5px;

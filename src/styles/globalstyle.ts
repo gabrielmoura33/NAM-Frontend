@@ -10,14 +10,13 @@ export default createGlobalStyle`
   html, body, #root {
     max-height: 100vh;
     max-width: 100vw;
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Nunito', serif;
     background: var(--background);
     height: 100%;
     width: 100%;
   }
   #root {
     max-height: 100vh;
-    overflow: hidden;
 
   }
   h1 {

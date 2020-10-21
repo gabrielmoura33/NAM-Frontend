@@ -16,6 +16,7 @@ import elipseSrc from '../../assets/elipse.svg';
 import { useAuth } from '../../hooks/auth';
 import Notifications from '../../components/Notification';
 import api from '../../services/api';
+import CreateCollectionModal from '../../components/CreateModal';
 
 interface CollectionProps {
   name: string;
@@ -25,6 +26,7 @@ const Dashboard: React.FC = () => {
   const { user } = useAuth();
   const [show] = useState(true);
   const [collectionData, setCollectionData] = useState<CollectionProps[]>([]);
+  const [modalVisibility, setModalVisibility] = useState(false);
 
   const loadAPIData = useCallback(async () => {
     const response = await api.get('/collection/search');
@@ -44,54 +46,67 @@ const Dashboard: React.FC = () => {
       top: '-500px',
       right: '-500px',
     },
-    enter: { opacity: 1, transform: 'scale(1)', top: '0', right: '0' },
+    enter: { opacity: 1, transform: 'scale(1)', top: '0', right: '4px' },
     leave: { opacity: 0 },
   });
 
+  const handleShowModal = useCallback(() => {
+    setModalVisibility(true);
+  }, []);
   return (
-    <Wrapper>
-      {animatedElipse.map(({ item, key, props }) => (
-        <animated.img key={key} style={props} src={elipseSrc} alt="Bola_azul" />
-      ))}
-      <Menu />
-      {/* <CollectionModalWrapper>
-        <CollectionModalContainer></CollectionModalContainer>
-      </CollectionModalWrapper> */}
-      <Container>
-        <Header>
-          <WelcomeSection>
-            <h1>
-              Seja Bem vindo(a),
-              <br />
-            </h1>
-            <p>{user.name}</p>
-          </WelcomeSection>
-          <ProfileSection>
-            <input type="text" placeholder="Filtrar...." />
-            <Notifications />
+    <>
+      <CreateCollectionModal
+        visibility={modalVisibility}
+        setModalVisibility={setModalVisibility}
+      />
 
-            <div>
-              <img
-                src="https://st3.depositphotos.com/4111759/13425/v/450/depositphotos_134255626-stock-illustration-avatar-male-profile-gray-person.jpg"
-                alt=""
-              />
-              <Link to="/">Editar Perfil</Link>
-            </div>
-          </ProfileSection>
-        </Header>
-        <Section>
-          {collectionData.map(collection => (
-            <div key={collection.id}>
-              <CgFileDocument size={50} color="#000" />
-              <span>{collection.name}</span>
-            </div>
+      <Wrapper>
+        <Menu />
+
+        <Container>
+          {animatedElipse.map(({ item, key, props }) => (
+            <animated.img
+              key={key}
+              style={props}
+              src={elipseSrc}
+              alt="Bola_azul"
+            />
           ))}
-          <div>
-            <AiOutlinePlusCircle size={50} color="#000" />
-          </div>
-        </Section>
-      </Container>
-    </Wrapper>
+          <Header>
+            <WelcomeSection>
+              <h1>
+                Seja Bem vindo(a),
+                <br />
+              </h1>
+              <p>{user.name}</p>
+            </WelcomeSection>
+            <ProfileSection>
+              <input type="text" placeholder="Filtrar...." />
+              <Notifications />
+
+              <div>
+                <img
+                  src="https://st3.depositphotos.com/4111759/13425/v/450/depositphotos_134255626-stock-illustration-avatar-male-profile-gray-person.jpg"
+                  alt=""
+                />
+                <Link to="/">Editar Perfil</Link>
+              </div>
+            </ProfileSection>
+          </Header>
+          <Section>
+            {collectionData.map(collection => (
+              <div key={collection.id}>
+                <CgFileDocument size={50} color="#000" />
+                <span>{collection.name}</span>
+              </div>
+            ))}
+            <div onClick={handleShowModal}>
+              <AiOutlinePlusCircle size={50} color="#000" />
+            </div>
+          </Section>
+        </Container>
+      </Wrapper>
+    </>
   );
 };
 
