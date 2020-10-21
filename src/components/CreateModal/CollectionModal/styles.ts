@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { Form } from '@unform/web';
 
 const fadeIn = keyframes`
 from {
@@ -8,12 +9,13 @@ to {
   opacity: 1;
 }
 `;
-export const Container = styled.form`
+export const Container = styled(Form)`
   width: 100%;
   transition: 1s;
   animation: ${fadeIn} ease 1s;
   margin-top: 60px;
   padding: 0 15px;
+  position: relative;
 `;
 
 export const InputBlock = styled.div`
@@ -62,4 +64,13 @@ export const Label = styled.label`
     margin-left: 24px;
     line-height: 24px;
   }
+`;
+
+export const SubmitButton = styled.button`
+  border: 0;
+  background: transparent;
+  position: absolute;
+
+  bottom: 0;
+  right: 0;
 `;
