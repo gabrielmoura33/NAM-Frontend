@@ -8,7 +8,7 @@ export const Container = styled.aside`
   img {
     max-height: 100px;
     max-width: 201px;
-    margin: 3rem 0 1.5rem 0;
+    margin: 1rem 0 1.5rem 0;
     align-self: center;
   }
 `;
