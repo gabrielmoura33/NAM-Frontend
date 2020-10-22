@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { Form } from '@unform/web';
 
 const fadeIn = keyframes`
 from {
@@ -9,7 +10,7 @@ to {
 }
 `;
 
-export const Container = styled.form`
+export const Container = styled(Form)`
   transition: 1s;
   animation: ${fadeIn} ease 1s;
   display: flex;
@@ -24,6 +25,7 @@ export const Container = styled.form`
 
     color: #5c8599;
   }
+  position: relative;
 `;
 
 export const Content = styled.div`
@@ -105,6 +107,24 @@ export const DocumentField = styled.a<DocumentFieldProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 12px;
   color: #fff;
   text-decoration: none;
+`;
+
+export const SubmitButton = styled.button`
+  position: absolute;
+  right: 0;
+  bottom: 0%;
+  width: 203.63px;
+  height: 45px;
+
+  background: #007ea7;
+  border-radius: 20px;
+  color: #fff;
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 26px;
 `;

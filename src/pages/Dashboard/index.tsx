@@ -55,11 +55,12 @@ const Dashboard: React.FC = () => {
   }, []);
   return (
     <>
-      <CreateCollectionModal
-        visibility={modalVisibility}
-        setModalVisibility={setModalVisibility}
-      />
-
+      {modalVisibility && (
+        <CreateCollectionModal
+          visibility={modalVisibility}
+          setModalVisibility={setModalVisibility}
+        />
+      )}
       <Wrapper>
         <Menu />
 

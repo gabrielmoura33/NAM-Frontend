@@ -7,6 +7,8 @@ import React, {
 } from 'react';
 
 import { AiFillPlusCircle } from 'react-icons/ai';
+import { useHistory } from 'react-router-dom';
+import api from '../../../services/api';
 import {
   Container,
   Content,
@@ -14,7 +16,9 @@ import {
   Label,
   DocumentFieldsContainer,
   DocumentField,
+  SubmitButton,
 } from './styles';
+import { useToast } from '../../../hooks/toast';
 
 interface DocumentStructureModalProps
   extends FormHTMLAttributes<HTMLFormElement> {
@@ -29,6 +33,10 @@ const DocumentStructureModal: React.FC<DocumentStructureModalProps> = ({
   collection_id,
 }) => {
   const [fieldname, setFieldName] = useState('');
+  const [fieldNameText, setFieldNameText] = useState('');
+  const { addToast } = useToast();
+  const history = useHistory();
+
   const [documentTableTextField, setDocumentTableTextField] = useState<
     DocumentTableColumn[]
   >([]);
@@ -40,10 +48,10 @@ const DocumentStructureModal: React.FC<DocumentStructureModalProps> = ({
   const handleAddVarcharField = useCallback(
     (event: FormEvent) => {
       event.preventDefault();
-      if (documentTableVarcharField.length < 8) {
+      if (documentTableVarcharField.length < 8 && fieldname !== '') {
         setDocumentTableVarcharField([
           ...documentTableVarcharField,
-          { name: fieldname.split(' ')[0], type: 'varchar' },
+          { name: fieldname.replace(' ', '_').toLowerCase(), type: 'varchar' },
         ]);
       }
     },
@@ -53,17 +61,45 @@ const DocumentStructureModal: React.FC<DocumentStructureModalProps> = ({
   const handleAddTextField = useCallback(
     (event: FormEvent) => {
       event.preventDefault();
-      if (documentTableTextField.length < 8) {
+      if (documentTableTextField.length < 8 && fieldNameText !== '') {
         setDocumentTableTextField([
           ...documentTableTextField,
-          { name: fieldname.split(' ')[0], type: 'text' },
+          { name: fieldNameText.replace(' ', '_').toLowerCase(), type: 'text' },
         ]);
       }
     },
-    [documentTableTextField, fieldname],
+    [documentTableTextField, fieldNameText],
   );
+
+  const handleSubmit = async () => {
+    try {
+      const tableColumns = documentTableVarcharField.concat(
+        documentTableTextField,
+      );
+
+      await api.post('documents/structure/', {
+        collectionId: collection_id,
+        tableColumns: [...tableColumns],
+      });
+
+      addToast({
+        type: 'sucess',
+        title: 'Cadastro de acervo  Realizado',
+        description: 'Cadastro realizado com sucesso!',
+      });
+
+      history.push('/');
+    } catch {
+      addToast({
+        type: 'error',
+        title: 'Atencao',
+        description: 'Erro no cadastro dos campos dos documentos!',
+      });
+    }
+  };
+
   return (
-    <Container>
+    <Container onSubmit={handleSubmit}>
       <h2>Digite os campos dos documentos</h2>
       <Content>
         <InputBlock>
@@ -96,11 +132,15 @@ const DocumentStructureModal: React.FC<DocumentStructureModalProps> = ({
       </Content>
       <Content>
         <InputBlock>
-          <Label htmlFor="fieldname">Nome do campo</Label>
+          <Label htmlFor="fieldnameText">Nome do campo</Label>
 
           <div>
             <span>Máximo de 500 catacteres</span>
-            <input id="fieldname" />
+            <input
+              id="fieldnameText"
+              value={fieldNameText}
+              onChange={e => setFieldNameText(e.target.value)}
+            />
           </div>
           <a
             href="sadsa"
@@ -118,6 +158,7 @@ const DocumentStructureModal: React.FC<DocumentStructureModalProps> = ({
             </DocumentField>
           ))}
         </DocumentFieldsContainer>
+        <SubmitButton type="submit">Cadastrar</SubmitButton>
       </Content>
     </Container>
   );
