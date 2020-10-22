@@ -3,6 +3,7 @@ import { Switch } from 'react-router-dom';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import Dashboard from '../pages/Dashboard';
+import Collection from '../pages/Collection';
 
 import Route from './Route';
 
@@ -13,6 +14,7 @@ const Routes: React.FC = () => {
       <Route path="/signup" component={SignUp} />
       <Route path="/signup" component={SignUp} />
       <Route path="/dashboard" isPrivate component={Dashboard} />
+      <Route path="/acervos/:collection_id" isPrivate component={Collection} />
     </Switch>
   );
 };

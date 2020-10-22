@@ -1,8 +1,9 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState, useEffect, useCallback } from 'react';
-import { useTransition, animated } from 'react-spring';
 import { CgFileDocument } from 'react-icons/cg';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
   Container,
   Wrapper,
@@ -26,7 +27,7 @@ const Dashboard: React.FC = () => {
   const { user } = useAuth();
   const [collectionData, setCollectionData] = useState<CollectionProps[]>([]);
   const [modalVisibility, setModalVisibility] = useState(false);
-
+  const history = useHistory();
   const loadAPIData = useCallback(async () => {
     const response = await api.get('/collection/search');
 
@@ -76,7 +77,10 @@ const Dashboard: React.FC = () => {
           </Header>
           <Section>
             {collectionData.map(collection => (
-              <div key={collection.id}>
+              <div
+                key={collection.id}
+                onClick={() => history.push(`/acervos/${collection.id}`)}
+              >
                 <CgFileDocument size={50} color="#000" />
                 <span>{collection.name}</span>
               </div>

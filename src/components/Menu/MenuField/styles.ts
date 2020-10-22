@@ -4,7 +4,7 @@ import { lighten } from 'polished';
 
 export const Container = styled.a`
   cursor: pointer;
-  margin-top: 20%;
+  margin-top: 18%;
   display: flex;
   flex-direction: row;
   align-items: center;
