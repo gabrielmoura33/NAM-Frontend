@@ -24,7 +24,6 @@ interface CollectionProps {
 }
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
-  const [show] = useState(true);
   const [collectionData, setCollectionData] = useState<CollectionProps[]>([]);
   const [modalVisibility, setModalVisibility] = useState(false);
 
@@ -37,18 +36,6 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     loadAPIData();
   }, [loadAPIData]);
-
-  const animatedElipse = useTransition(show, null, {
-    from: {
-      opacity: 0,
-      position: 'absolute',
-      transform: 'scale(0)',
-      top: '-500px',
-      right: '-500px',
-    },
-    enter: { opacity: 1, transform: 'scale(1)', top: '0', right: '4px' },
-    leave: { opacity: 0 },
-  });
 
   const handleShowModal = useCallback(() => {
     setModalVisibility(true);
@@ -65,14 +52,7 @@ const Dashboard: React.FC = () => {
         <Menu />
 
         <Container>
-          {animatedElipse.map(({ item, key, props }) => (
-            <animated.img
-              key={key}
-              style={props}
-              src={elipseSrc}
-              alt="Bola_azul"
-            />
-          ))}
+          <img src={elipseSrc} alt="Bola_azul" />
           <Header>
             <WelcomeSection>
               <h1>

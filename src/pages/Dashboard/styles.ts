@@ -4,18 +4,27 @@ import { darken } from 'polished';
 
 export const Wrapper = styled.div`
   display: flex;
-  height: 100vh;
-  width: 100vw;
-  > img {
-    position: absolute;
+`;
+const ballTransition = keyframes`
+  from {
+    transform: translate(325px, -325px) scale(0);
+  }
+  to {
+    transform: translate(0px,0px) scale(1);
   }
 `;
-
 export const Container = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  position: relative;
+  z-index: 0;
+  > img {
+    position: absolute;
+    z-index: -5;
+    right: 0;
+    animation: ${ballTransition} ease 0.5s;
+  }
 `;
 
 export const Header = styled.div`
