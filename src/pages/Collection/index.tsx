@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 // import { FaWhatsapp } from "react-icons/fa"
-import { FiClock, FiInfo } from 'react-icons/fi';
+import { FaWhatsapp } from 'react-icons/fa';
 
-import api from '../../services/api';
 import Sidebar from '../../components/Sidebar';
 
 import './orphanage.css';
-import { FaWhatsapp } from 'react-icons/fa';
 
 interface Orphanage {
   id: number;
@@ -29,9 +26,6 @@ interface RouteParams {
 }
 
 const Orphanage: React.FC = () => {
-  const [orphanage, setOrphanage] = useState<Orphanage>();
-  const params = useParams<RouteParams>();
-
   return (
     <div id="page-orphanage">
       <Sidebar />
@@ -42,6 +36,15 @@ const Orphanage: React.FC = () => {
             src="http://localhost:3333/images/458594d3e1d6e823b061-Frame.png"
             alt="Lorem Ipsum"
           />
+
+          <div className="images">
+            <button type="button" className="active">
+              <img
+                src="http://localhost:3333/images/458594d3e1d6e823b061-Frame.png"
+                alt="lorem ipsum"
+              />
+            </button>
+          </div>
 
           <div className="orphanage-details-content">
             <h1>Acervo Lorem Ipsum</h1>

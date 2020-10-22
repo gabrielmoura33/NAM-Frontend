@@ -8,7 +8,9 @@ const Sidebar: React.FC = () => {
   const history = useHistory();
   return (
     <aside className="app-sidebar">
-      <img src={logoUemg} alt="Logo Happy" />
+      <div>
+        <img src={logoUemg} alt="Logo Happy" />
+      </div>
 
       <footer>
         <button type="button" onClick={() => history.push('/dashboard')}>
