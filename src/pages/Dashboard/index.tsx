@@ -24,15 +24,17 @@ interface CollectionProps {
   id: string;
 }
 const Dashboard: React.FC = () => {
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const [collectionData, setCollectionData] = useState<CollectionProps[]>([]);
   const [modalVisibility, setModalVisibility] = useState(false);
   const history = useHistory();
   const loadAPIData = useCallback(async () => {
-    const response = await api.get('/collection/search');
+    const response = await api.get('/collection', {
+      headers: { Authorization: token },
+    });
 
     setCollectionData(response.data);
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     loadAPIData();

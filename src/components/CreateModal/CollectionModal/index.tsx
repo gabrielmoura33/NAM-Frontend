@@ -3,6 +3,7 @@ import React, { FormHTMLAttributes, useState, useCallback } from 'react';
 import { IoIosArrowDroprightCircle } from 'react-icons/io';
 import api from '../../../services/api';
 import { useToast } from '../../../hooks/toast';
+import { useAuth } from '../../../hooks/auth';
 
 import { Container, InputBlock, Label, SubmitButton } from './styles';
 
@@ -20,7 +21,7 @@ const CollectionModal: React.FC<CollectionProps> = ({
   const [email, setEmail] = useState('');
   const [about, setAbout] = useState('');
   const { addToast } = useToast();
-
+  const { token } = useAuth();
   const handleApiSubmit = useCallback(async () => {
     try {
       if (!coverImg) {
@@ -32,7 +33,9 @@ const CollectionModal: React.FC<CollectionProps> = ({
       data.append('collectionName', collectionName);
       data.append('image', coverImg);
 
-      const response = await api.post('collection', data);
+      const response = await api.post('collection', data, {
+        headers: { authorization: token },
+      });
 
       setCollecitonId(String(response.data.id));
 

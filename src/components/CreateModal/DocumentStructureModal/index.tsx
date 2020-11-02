@@ -39,11 +39,25 @@ const DocumentStructureModal: React.FC<DocumentStructureModalProps> = ({
 
   const [documentTableTextField, setDocumentTableTextField] = useState<
     DocumentTableColumn[]
-  >([]);
+  >([
+    {
+      name: 'observacoes',
+      type: 'text',
+    },
+  ]);
 
   const [documentTableVarcharField, setDocumentTableVarcharField] = useState<
     DocumentTableColumn[]
-  >([]);
+  >([
+    {
+      name: 'titulo',
+      type: 'varchar',
+    },
+    {
+      name: 'autor',
+      type: 'varchar',
+    },
+  ]);
 
   const handleAddVarcharField = useCallback(
     (event: FormEvent) => {
@@ -124,7 +138,7 @@ const DocumentStructureModal: React.FC<DocumentStructureModalProps> = ({
         <Label htmlFor="">Campos: </Label>
         <DocumentFieldsContainer>
           {documentTableVarcharField.map((varcharField, i) => (
-            <DocumentField colortype={varcharField.type} href="" key={i}>
+            <DocumentField colortype={varcharField.type} key={i}>
               {varcharField.name}
             </DocumentField>
           ))}
@@ -153,7 +167,7 @@ const DocumentStructureModal: React.FC<DocumentStructureModalProps> = ({
         <Label htmlFor="">Campos: </Label>
         <DocumentFieldsContainer>
           {documentTableTextField.map((textfield, i) => (
-            <DocumentField colortype={textfield.type} href="" key={i}>
+            <DocumentField colortype={textfield.type} key={i}>
               {textfield.name}
             </DocumentField>
           ))}

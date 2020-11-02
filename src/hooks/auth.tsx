@@ -21,6 +21,7 @@ interface AuthContextData {
   user: UserProps;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
+  token: string;
 }
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
@@ -43,9 +44,9 @@ const AuthProvider: React.FC = ({ children }) => {
 
     const { token, user } = response.data;
 
-    localStorage.setItem('@NAM:token', token);
+    localStorage.setItem('@NAM:token', `Bearer ${token}`);
     localStorage.setItem('@NAM:user', JSON.stringify(user));
-    setData({ token, user });
+    setData({ token: `Bearer ${token}`, user });
   }, []);
 
   const signOut = useCallback(() => {
@@ -54,7 +55,9 @@ const AuthProvider: React.FC = ({ children }) => {
     setData({} as AuthState);
   }, []);
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ user: data.user, signIn, signOut, token: data.token }}
+    >
       {children}
     </AuthContext.Provider>
   );
