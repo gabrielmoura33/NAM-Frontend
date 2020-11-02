@@ -66,6 +66,7 @@ const Menu: React.FC = () => {
         .filter(menuItem => menuItem.accessLevel <= user.registerType)
         .map(menuItem => (
           <MenuField
+            key={menuItem.text}
             icon={menuItem.icon}
             text={menuItem.text}
             action={menuItem.action}

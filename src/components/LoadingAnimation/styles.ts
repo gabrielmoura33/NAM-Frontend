@@ -7,7 +7,7 @@ interface AnimationContainerProps {
 export const Container = styled.div<AnimationContainerProps>`
   background: rgba(37, 34, 30, 0.3);
   position: absolute;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   display: flex;
   flex: 1;

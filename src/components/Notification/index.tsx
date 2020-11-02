@@ -86,7 +86,7 @@ const Notifications: React.FC = () => {
       <NotificationList visible={visible}>
         <Scroll>
           {notifications.map(notification => (
-            <Notification unread={!notification.read}>
+            <Notification key={notification._id} unread={!notification.read}>
               <p>{notification.content}</p>
               <div>
                 <time>{notification.timeDistance}</time>

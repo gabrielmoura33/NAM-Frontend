@@ -61,6 +61,7 @@ const CollectionModal: React.FC<CollectionProps> = ({
     email,
     setCollecitonId,
     setModalContent,
+    token,
   ]);
   return (
     <Container onSubmit={handleApiSubmit}>

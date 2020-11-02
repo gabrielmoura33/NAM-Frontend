@@ -220,7 +220,6 @@ export const DocumentBoxContainer = styled.div`
   margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap
 `;
 
 const boxAnimation = keyframes`
@@ -268,7 +267,8 @@ export const ButtonGroup = styled.div`
     'header header header header header header'
     'main main main right right right';
   grid-gap: 10px;
-  button.contact-button {
+
+  .contact-button {
     align-items: center;
     border: 0;
     border-radius: 20px;
@@ -279,6 +279,7 @@ export const ButtonGroup = styled.div`
     height: 64px;
     justify-content: center;
     transition: opacity 0.2s;
+    text-decoration: none;
     svg {
       margin-right: 16px;
     }

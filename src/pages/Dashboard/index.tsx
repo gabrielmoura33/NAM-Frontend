@@ -81,7 +81,7 @@ const Dashboard: React.FC = () => {
             {collectionData.map(collection => (
               <div
                 key={collection.id}
-                onClick={() => history.push(`/acervos/${collection.id}`)}
+                onClick={() => history.push(`/acervo/${collection.id}`)}
               >
                 <CgFileDocument size={50} color="#000" />
                 <span>{collection.name}</span>

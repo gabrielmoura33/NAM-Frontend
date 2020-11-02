@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
-// import { FaWhatsapp } from "react-icons/fa"
-import { FaWhatsapp } from 'react-icons/fa';
+import React, { useState, useEffect, useCallback, FormEvent } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { CgFileDocument } from 'react-icons/cg';
 import { RiFileExcel2Line } from 'react-icons/ri';
 import Sidebar from '../../components/Sidebar';
@@ -11,13 +9,11 @@ import {
   DocumentBoxContainer,
   DocumentBox,
   InputBlock,
-  Label,
   ButtonGroup,
 } from './styles';
 import LoadingAnimation from '../../components/LoadingAnimation';
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
-
 import api from '../../services/api';
 
 interface Collection {
@@ -29,6 +25,7 @@ interface Collection {
 }
 
 interface Document {
+  id: string;
   titulo: string;
 }
 interface RouteParams {
@@ -38,7 +35,7 @@ interface RouteParams {
 const Orphanage: React.FC = () => {
   const params = useParams<RouteParams>();
 
-  const { user, token } = useAuth();
+  const { token } = useAuth();
   const { addToast } = useToast();
   const [collection, setCollection] = useState<Collection>();
   const [documents, setDocuments] = useState<Document[]>();
@@ -67,31 +64,64 @@ const Orphanage: React.FC = () => {
     setLoading(false);
   }, [loadCollectionAPIData, loadCollectionDocumentsData, setLoading]);
 
-  const downloadExcelData = useCallback(async () => {
-    setLoading(true);
+  const downloadExcelData = useCallback(
+    async (event: FormEvent) => {
+      event.preventDefault();
+      setLoading(true);
 
-    try {
-      await api.get(`/documents/excel/${params.id}`, {
-        headers: { Authorization: token },
-      });
+      try {
+        window.open(
+          `${process.env.REACT_APP_API_URL}/documents/data/excel/${params.id}`,
+        );
 
-      addToast({
-        type: 'sucess',
-        title: 'Download realizado!',
-        description:
-          'O Download dos documentos em excel foi realizado com sucesso',
-      });
-    } catch {
-      addToast({
-        type: 'error',
-        title: 'Erro ao realizar download!',
-        description:
-          'Ocorreu um erro ao realizar o download da planilha do acervo',
-      });
-    } finally {
-      setLoading(false);
-    }
-  }, [addToast, params.id, token]);
+        addToast({
+          type: 'sucess',
+          title: 'Download realizado!',
+          description:
+            'O Download dos documentos em excel foi realizado com sucesso',
+        });
+      } catch {
+        addToast({
+          type: 'error',
+          title: 'Erro ao realizar download!',
+          description:
+            'Ocorreu um erro ao realizar o download da planilha do acervo',
+        });
+      } finally {
+        setLoading(false);
+      }
+    },
+    [addToast, params.id],
+  );
+  const downloadExcelStructure = useCallback(
+    async (event: FormEvent) => {
+      event.preventDefault();
+      setLoading(true);
+
+      try {
+        window.open(
+          `${process.env.REACT_APP_API_URL}/documents/structure/excel/${params.id}`,
+        );
+
+        addToast({
+          type: 'sucess',
+          title: 'Download realizado!',
+          description:
+            'O Download dos documentos em excel foi realizado com sucesso',
+        });
+      } catch {
+        addToast({
+          type: 'error',
+          title: 'Erro ao realizar download!',
+          description:
+            'Ocorreu um erro ao realizar o download da planilha do acervo',
+        });
+      } finally {
+        setLoading(false);
+      }
+    },
+    [addToast, params.id],
+  );
   return (
     <Container id="page-orphanage">
       <LoadingAnimation visible={loading} />
@@ -124,7 +154,7 @@ const Orphanage: React.FC = () => {
 
               <DocumentBoxContainer>
                 {documents?.map(doc => (
-                  <DocumentBox>
+                  <DocumentBox key={doc.id}>
                     <CgFileDocument size={50} color="#000" />
                     <span>{doc?.titulo}</span>
                   </DocumentBox>
@@ -132,20 +162,28 @@ const Orphanage: React.FC = () => {
               </DocumentBoxContainer>
 
               <ButtonGroup>
-                <button
-                  type="button"
-                  onClick={() => downloadExcelData()}
+                <a
+                  href="asds"
+                  onClick={(Event: FormEvent) => downloadExcelData(Event)}
+                  download
                   className="contact-button"
                 >
                   Exportar dados
-                </button>
-                <button type="button" className="contact-button">
+                </a>
+                <a
+                  href="sdasa"
+                  onClick={(Event: FormEvent) => downloadExcelStructure(Event)}
+                  className="contact-button"
+                >
                   <RiFileExcel2Line size={32} />
                   Exportar modelo excel
-                </button>
-                <button type="button" className="contact-button">
+                </a>
+                <Link
+                  to={`/acervo/${params.id}/documento`}
+                  className="contact-button"
+                >
                   Cadastrar documento
-                </button>
+                </Link>
               </ButtonGroup>
             </div>
           </div>
