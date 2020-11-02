@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import { Form } from '@unform/web';
 
 export const Container = styled.div`
   display: flex;
+
   aside {
     align-items: center;
     background: #007ea7;
@@ -32,144 +34,22 @@ export const Container = styled.div`
       width: 48px;
     }
   }
+
   main {
     flex: 1;
   }
+`;
 
-  form.create-orphanage-form {
-    background: #fff;
-    border: 1px solid #d3e2e5;
-    border-radius: 20px;
-    margin: 64px auto;
-    overflow: hidden;
-    padding: 64px 80px;
-    width: 700px;
-  }
+export const CreateCollectionForm = styled(Form)`
+  background: #fff;
+  border: 1px solid #d3e2e5;
+  border-radius: 20px;
+  margin: 64px auto;
+  overflow: hidden;
+  padding: 64px 80px;
+  width: 700px;
 
-  form.create-orphanage-form .leaflet-container {
-    border: 1px solid #d3e2e5;
-    border-radius: 20px;
-    margin-bottom: 40px;
-  }
-
-  form.create-orphanage-form fieldset {
-    border: 0;
-  }
-
-  form.create-orphanage-form fieldset + fieldset {
-    margin-top: 80px;
-  }
-
-  form.create-orphanage-form fieldset legend {
-    border-bottom: 1px solid #d3e2e5;
-    color: #5c8599;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 34px;
-    margin-bottom: 40px;
-    padding-bottom: 24px;
-    width: 100%;
-  }
-
-  /* form.create-orphanage-form .input-block + .input-block {
-    margin-top: 24px;
-  } */
-
-  form.create-orphanage-form .input-block label {
-    color: #8fa7b3;
-    display: flex;
-    line-height: 24px;
-    margin-bottom: 8px;
-  }
-
-  form.create-orphanage-form .input-block label span {
-    color: #8fa7b3;
-    font-size: 14px;
-    line-height: 24px;
-    margin-left: 24px;
-  }
-
-  form.create-orphanage-form .input-block input,
-  form.create-orphanage-form .input-block textarea {
-    background: #f5f8fa;
-    border: 1px solid #d3e2e5;
-    border-radius: 20px;
-    color: #5c8599;
-    outline: none;
-    width: 100%;
-  }
-
-  form.create-orphanage-form .input-block input {
-    height: 41px;
-    padding: 0 16px;
-  }
-
-  form.create-orphanage-form .input-block textarea {
-    line-height: 28px;
-    max-height: 240px;
-    min-height: 120px;
-    padding: 16px;
-    resize: vertical;
-  }
-
-  form.create-orphanage-form .input-block .images-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    column-gap: 16px;
-    row-gap: 8px;
-  }
-
-  form.create-orphanage-form .input-block .images-container img {
-    border-radius: 20px;
-    height: 96px;
-    object-fit: cover;
-    width: 100%;
-  }
-
-  form.create-orphanage-form .input-block .images-container .new-image {
-    align-items: center;
-    background: #f5f8fa;
-    border: 1px dashed #96d2f0;
-    border-radius: 20px;
-    cursor: pointer;
-    display: flex;
-    height: 96px;
-    justify-content: center;
-  }
-
-  form.create-orphanage-form .input-block input[type='file'] {
-    display: none;
-  }
-
-  form.create-orphanage-form .input-block .button-select {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  form.create-orphanage-form .input-block .button-select button {
-    background: #f5f8fa;
-    border: 1px solid #d3e2e5;
-    color: #5c8599;
-    cursor: pointer;
-    height: 64px;
-  }
-
-  form.create-orphanage-form .input-block .button-select button.active {
-    background: #edfff6;
-    border: 1px solid #a1e9c5;
-    color: #37c77f;
-  }
-
-  form.create-orphanage-form .input-block .button-select button:first-child {
-    border-radius: 20px 0px 0px 20px;
-  }
-
-  form.create-orphanage-form .input-block .button-select button:last-child {
-    border-left: 0;
-    border-radius: 0 20px 20px 0;
-  }
-
-  form.create-orphanage-form button.confirm-button {
+  button.confirm-button {
     align-items: center;
     background: #3cdc8c;
     border: 0;
@@ -183,14 +63,112 @@ export const Container = styled.div`
     margin-top: 64px;
     transition: background-color 0.2s;
     width: 100%;
+
+    svg {
+      margin-right: 16px;
+    }
+
+    &:hover {
+      background: #36cf82;
+    }
+  }
+`;
+
+export const RequiredFieldset = styled.fieldset`
+  border: 0;
+
+  legend {
+    border-bottom: 1px solid #d3e2e5;
+    color: #5c8599;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 34px;
+    margin-bottom: 20px;
+    padding-bottom: 24px;
+    width: 100%;
+  }
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+export const NonRequiredFieldset = styled.fieldset`
+  border: 0;
+
+  legend {
+    border-bottom: 1px solid #d3e2e5;
+    color: #5c8599;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 34px;
+    margin: 20px 0;
+    padding-bottom: 24px;
+    width: 100%;
+  }
+`;
+
+export const InputBlock = styled.div`
+  label {
+    color: #8fa7b3;
+    display: flex;
+    line-height: 24px;
+    margin-bottom: 8px;
+    span {
+      color: #8fa7b3;
+      font-size: 14px;
+      line-height: 24px;
+      margin-left: 24px;
+    }
   }
 
-  form.create-orphanage-form button.confirm-button svg {
-    margin-right: 16px;
+  input,
+  textarea {
+    background: #f5f8fa;
+    border: 1px solid #d3e2e5;
+    border-radius: 20px;
+    color: #5c8599;
+    outline: none;
+    width: 100%;
   }
 
-  form.create-orphanage-form button.confirm-button:hover {
-    background: #36cf82;
+  input {
+    height: 41px;
+    padding: 0 16px;
+  }
+  textarea {
+    line-height: 28px;
+    max-height: 240px;
+    min-height: 120px;
+    padding: 16px;
+    resize: vertical;
+  }
+
+  input[type='file'] {
+    display: none;
+  }
+`;
+
+export const ImageContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 16px;
+  row-gap: 8px;
+  img {
+    border-radius: 20px;
+    height: 96px;
+    object-fit: cover;
+    width: 100%;
+  }
+  .new-image {
+    align-items: center;
+    background: #f5f8fa;
+    border: 1px dashed #96d2f0;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    height: 96px;
+    justify-content: center;
+    margin-bottom: 30px;
   }
 `;
 

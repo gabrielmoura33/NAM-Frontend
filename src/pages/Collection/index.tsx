@@ -124,10 +124,11 @@ const Orphanage: React.FC = () => {
   );
   return (
     <Container id="page-orphanage">
-      <LoadingAnimation visible={loading} />
       <Sidebar />
 
-      {!loading && (
+      {loading ? (
+        <LoadingAnimation visible={loading} />
+      ) : (
         <main>
           <div className="orphanage-details">
             <img src={collection?.cover_image_url} alt="Lorem Ipsum" />
