@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { ChangeEvent, useState, useEffect } from 'react';
+import React, { ChangeEvent, useState, useEffect, useRef } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';
+import { FormHandles } from '@unform/core';
 import Sidebar from '../../components/Sidebar';
 import {
   Container,
@@ -28,17 +29,22 @@ interface CustomDocumentField {
 }
 interface RouteParams {
   id: string;
+  document_id?: string;
 }
-const CreateDocument: React.FC = () => {
-  const { token } = useAuth();
+const UpdateDocument: React.FC = () => {
+  const { token, user } = useAuth();
 
   const params = useParams<RouteParams>();
   const [loading, setLoading] = useState(true);
+  const formRef = useRef<FormHandles>({} as FormHandles);
+
   const [shortTextFields, setShortTextFields] = useState<CustomDocumentField[]>(
     [],
   );
 
   const [longTextField, setLongTextField] = useState<CustomDocumentField[]>([]);
+  const [documentData, setDocumentData] = useState<any>([]);
+
   const [images, setImages] = useState<File[]>([]);
   const [selectedImagesPreview, setSelectedImagesPreview] = useState<string[]>(
     [],
@@ -97,9 +103,33 @@ const CreateDocument: React.FC = () => {
       setLongTextField(fullTextFields);
     }
 
+    async function loadDocumentData() {
+      const response = await api.get<CustomDocumentField[]>(
+        `documents/data/${params.id}/doc`,
+        {
+          params: { documentId: params.document_id },
+          headers: { Authorization: token },
+        },
+      );
+
+      if (!response.data[0]) {
+        addToast({
+          type: 'error',
+          title: 'Documento Incorreto',
+          description: 'Nao foi encontrado dado nesta URL',
+        });
+        push(`/acervo/${params.id}`);
+        return;
+      }
+
+      setDocumentData(response.data[0]);
+      formRef.current.setData(response.data[0]);
+    }
+
     loadDocumentFields();
+    loadDocumentData();
     setLoading(false);
-  }, [params.id, token]);
+  }, [addToast, params.document_id, params.id, push, token]);
 
   function handleSelectImages(event: ChangeEvent<HTMLInputElement>) {
     if (!event.target.files) {
@@ -150,25 +180,29 @@ const CreateDocument: React.FC = () => {
         <LoadingAnimation visible />
       ) : (
         <main>
-          <CreateCollectionForm onSubmit={handleSubmit}>
+          <CreateCollectionForm onSubmit={handleSubmit} ref={formRef}>
             <RequiredFieldset>
               <legend>Campos obrigatórios</legend>
 
               <InputBlock>
                 <label>Título</label>
-                <DocumentInput name="titulo" />
+                <DocumentInput name="titulo" disabled={user.registerType > 1} />
               </InputBlock>
 
               <InputBlock>
                 <label>Autor</label>
-                <DocumentInput name="autor" />
+                <DocumentInput name="autor" disabled={user.registerType > 1} />
               </InputBlock>
               <InputBlock>
                 <label>
                   Observações
                   <span>Máximo de 500 caracteres</span>
                 </label>
-                <DocumentTextArea name="observacoes" maxLength={500} />
+                <DocumentTextArea
+                  name="observacoes"
+                  maxLength={500}
+                  disabled={user.registerType > 1}
+                />
               </InputBlock>
 
               <InputBlock>
@@ -189,6 +223,7 @@ const CreateDocument: React.FC = () => {
                   id="image[]"
                   multiple
                   onChange={handleSelectImages}
+                  disabled={user.registerType > 1}
                 />
               </InputBlock>
             </RequiredFieldset>
@@ -199,7 +234,10 @@ const CreateDocument: React.FC = () => {
                 {shortTextFields.map((shortTextField, index) => (
                   <InputBlock key={index}>
                     <label>{shortTextField.displayName}</label>
-                    <DocumentInput name={shortTextField.column_name} />
+                    <DocumentInput
+                      name={shortTextField.column_name}
+                      disabled={user.registerType > 1}
+                    />
                   </InputBlock>
                 ))}
               </InputGroupCustomContainer>
@@ -213,13 +251,14 @@ const CreateDocument: React.FC = () => {
                     <DocumentTextArea
                       name={longText.column_name}
                       maxLength={500}
+                      disabled={user.registerType > 1}
                     />
                   </InputBlock>
                 ))}
               </InputGroupCustomContainer>
             </NonRequiredFieldset>
 
-            <button className="confirm-button" type="submit">
+            <button className="confirm-button" type="submit" disabled>
               Confirmar
             </button>
           </CreateCollectionForm>
@@ -229,4 +268,4 @@ const CreateDocument: React.FC = () => {
   );
 };
 
-export default CreateDocument;
+export default UpdateDocument;

@@ -13,7 +13,7 @@ const Sidebar: React.FC = () => {
       </div>
 
       <footer>
-        <button type="button" onClick={() => history.push('/dashboard')}>
+        <button type="button" onClick={() => history.push('/')}>
           <FiArrowLeft size={24} color="#fff" />
         </button>
       </footer>

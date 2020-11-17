@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, FormEvent } from 'react';
 
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { CgFileDocument } from 'react-icons/cg';
 import { RiFileExcel2Line } from 'react-icons/ri';
 import Sidebar from '../../components/Sidebar';
@@ -39,6 +39,7 @@ const Orphanage: React.FC = () => {
   const { addToast } = useToast();
   const [collection, setCollection] = useState<Collection>();
   const [documents, setDocuments] = useState<Document[]>();
+  const { push } = useHistory();
 
   const [loading, setLoading] = useState(true);
 
@@ -155,7 +156,12 @@ const Orphanage: React.FC = () => {
 
               <DocumentBoxContainer>
                 {documents?.map(doc => (
-                  <DocumentBox key={doc.id}>
+                  <DocumentBox
+                    key={doc.id}
+                    onClick={() =>
+                      push(`/acervo/${params.id}/documento/${doc.id}`)
+                    }
+                  >
                     <CgFileDocument size={50} color="#000" />
                     <span>{doc?.titulo}</span>
                   </DocumentBox>

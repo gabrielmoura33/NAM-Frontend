@@ -5,6 +5,9 @@ import SignUp from '../pages/SignUp';
 import Dashboard from '../pages/Dashboard';
 import Collection from '../pages/Collection';
 import CreateDocument from '../pages/CreateDocument';
+import UpdateDocument from '../pages/UpdateDocument';
+
+import UpdateProfile from '../pages/UpdateProfile';
 
 import Route from './Route';
 
@@ -20,7 +23,14 @@ const Routes: React.FC = () => {
         path="/acervo/:id/documento"
         isPrivate
         component={CreateDocument}
+        exact
       />
+      <Route
+        path="/acervo/:id/documento/:document_id"
+        isPrivate
+        component={UpdateDocument}
+      />
+      <Route path="/profile" isPrivate component={UpdateProfile} />
     </Switch>
   );
 };

@@ -73,7 +73,7 @@ const Dashboard: React.FC = () => {
                   src="https://st3.depositphotos.com/4111759/13425/v/450/depositphotos_134255626-stock-illustration-avatar-male-profile-gray-person.jpg"
                   alt=""
                 />
-                <Link to="/">Editar Perfil</Link>
+                <Link to="/profile">Editar Perfil</Link>
               </div>
             </ProfileSection>
           </Header>

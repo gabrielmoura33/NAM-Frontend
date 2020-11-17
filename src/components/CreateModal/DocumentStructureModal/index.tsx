@@ -19,6 +19,7 @@ import {
   SubmitButton,
 } from './styles';
 import { useToast } from '../../../hooks/toast';
+import { useAuth } from '../../../hooks/auth';
 
 interface DocumentStructureModalProps
   extends FormHTMLAttributes<HTMLFormElement> {
@@ -33,6 +34,8 @@ const DocumentStructureModal: React.FC<DocumentStructureModalProps> = ({
   collection_id,
 }) => {
   const [fieldname, setFieldName] = useState('');
+  const { token } = useAuth();
+
   const [fieldNameText, setFieldNameText] = useState('');
   const { addToast } = useToast();
   const history = useHistory();
@@ -91,10 +94,16 @@ const DocumentStructureModal: React.FC<DocumentStructureModalProps> = ({
         documentTableTextField,
       );
 
-      await api.post('documents/structure/', {
-        collectionId: collection_id,
-        tableColumns: [...tableColumns],
-      });
+      await api.post(
+        'documents/structure/',
+        {
+          collectionId: collection_id,
+          tableColumns: [...tableColumns],
+        },
+        {
+          headers: { Authorization: token },
+        },
+      );
 
       addToast({
         type: 'sucess',
